@@ -1,0 +1,12 @@
+C:\Users\delep\source\repos\ChairHomard45\INFO_08-Conception-avanc-e-des-SI_Exercices\Exercice1\bin\Debug\net8.0\Exercice1.deps.json
+C:\Users\delep\source\repos\ChairHomard45\INFO_08-Conception-avanc-e-des-SI_Exercices\Exercice1\bin\Debug\net8.0\Exercice1.dll
+C:\Users\delep\source\repos\ChairHomard45\INFO_08-Conception-avanc-e-des-SI_Exercices\Exercice1\bin\Debug\net8.0\Exercice1.pdb
+C:\Users\delep\source\repos\ChairHomard45\INFO_08-Conception-avanc-e-des-SI_Exercices\Exercice1\obj\Debug\net8.0\Exercice1.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\delep\source\repos\ChairHomard45\INFO_08-Conception-avanc-e-des-SI_Exercices\Exercice1\obj\Debug\net8.0\Exercice1.AssemblyInfoInputs.cache
+C:\Users\delep\source\repos\ChairHomard45\INFO_08-Conception-avanc-e-des-SI_Exercices\Exercice1\obj\Debug\net8.0\Exercice1.AssemblyInfo.cs
+C:\Users\delep\source\repos\ChairHomard45\INFO_08-Conception-avanc-e-des-SI_Exercices\Exercice1\obj\Debug\net8.0\Exercice1.csproj.CoreCompileInputs.cache
+C:\Users\delep\source\repos\ChairHomard45\INFO_08-Conception-avanc-e-des-SI_Exercices\Exercice1\obj\Debug\net8.0\Exercice1.sourcelink.json
+C:\Users\delep\source\repos\ChairHomard45\INFO_08-Conception-avanc-e-des-SI_Exercices\Exercice1\obj\Debug\net8.0\Exercice1.dll
+C:\Users\delep\source\repos\ChairHomard45\INFO_08-Conception-avanc-e-des-SI_Exercices\Exercice1\obj\Debug\net8.0\refint\Exercice1.dll
+C:\Users\delep\source\repos\ChairHomard45\INFO_08-Conception-avanc-e-des-SI_Exercices\Exercice1\obj\Debug\net8.0\Exercice1.pdb
+C:\Users\delep\source\repos\ChairHomard45\INFO_08-Conception-avanc-e-des-SI_Exercices\Exercice1\obj\Debug\net8.0\ref\Exercice1.dll

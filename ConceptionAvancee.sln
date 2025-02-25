@@ -1,8 +1,13 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35818.85 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exercice1", "Exercice1\Exercice1.csproj", "{DE85D331-4B35-4021-933D-3ED0F9979797}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exercice2", "Exercice2\Exercice2.csproj", "{DA57EFC8-09F9-4ABE-8D38-C0AE48FDB34F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Exercice3GestionTournoi", "Exercice3GestionTournoi\Exercice3GestionTournoi.csproj", "{257AA17A-7020-4CA8-8901-6E9CDA79D294}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,5 +23,15 @@ Global
 		{DA57EFC8-09F9-4ABE-8D38-C0AE48FDB34F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DA57EFC8-09F9-4ABE-8D38-C0AE48FDB34F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DA57EFC8-09F9-4ABE-8D38-C0AE48FDB34F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{257AA17A-7020-4CA8-8901-6E9CDA79D294}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{257AA17A-7020-4CA8-8901-6E9CDA79D294}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{257AA17A-7020-4CA8-8901-6E9CDA79D294}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{257AA17A-7020-4CA8-8901-6E9CDA79D294}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {72D9E3D2-8D3F-4007-9E75-DF0563D3E3ED}
 	EndGlobalSection
 EndGlobal

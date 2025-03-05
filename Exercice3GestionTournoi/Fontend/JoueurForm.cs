@@ -227,6 +227,13 @@ namespace Exercice3GestionTournoi.Fontend
             }
                
         }
+        public void OnCompleted()
+        {
+        }
+
+        public void OnError(Exception error)
+        {
+        }
 
         // Custom fonction:
         private void InscriptionBegin()
@@ -235,7 +242,6 @@ namespace Exercice3GestionTournoi.Fontend
             labelErreur.Text = "La phase d'inscription a commencer!";
             labelErreurNomEquipe.ForeColor = Color.Black;
             labelErreurNomEquipe.Text = "Saisissez le nom de votre équipe";
-
 
             textNomEquipe.Enabled = true;
             boutonJouer.Visible = true;
@@ -261,12 +267,6 @@ namespace Exercice3GestionTournoi.Fontend
             boutonJouer.Visible = false;
         }
 
-        public void OnCompleted()
-        {
-        }
 
-        public void OnError(Exception error)
-        {
-        }
     }
 }

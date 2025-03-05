@@ -8,7 +8,7 @@ namespace Exercice3GestionTournoi.Backend
         {
             //Tournoi tournoi = new Tournoi();
             Tournoi tournoi = Tournoi.Instance;
-            tournoi.NomTournoi = "Tournoi intergallactique";
+            tournoi.SetNomTournoi("Tournoi intergallactique");
             tournoi.AddEquipe("The best"); // Id=1
             tournoi.AddEquipe("The blue jackets");// Id=2
 

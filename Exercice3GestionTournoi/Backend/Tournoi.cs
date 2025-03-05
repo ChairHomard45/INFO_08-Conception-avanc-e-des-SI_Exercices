@@ -1,26 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Exercice3GestionTournoi.Backend
+﻿namespace Exercice3GestionTournoi.Backend
 {
-    public class Tournoi : IObservable<NotificationTournoi>
+    public class Tournoi : IObservable<NotificationTournoi>, IObserver<NotificationChrono>, IObservable<NotificationChrono>
     {
-        public string NomTournoi = string.Empty;
-        public int NbJoueursMinParEquipe = 3;
+        private string _nomTournoi = string.Empty;
+        private readonly int _nbJoueursMinParEquipe = 3;
         private int _lastId = 0;
         private static readonly object Lock = new object();
-        private Dictionary<int,Equipe> _equipes = new Dictionary<int, Equipe>();
-        private Dictionary<int,Joueur> _joueurs = new Dictionary<int, Joueur>();
+        private readonly Dictionary<int,Equipe> _equipes = new ();
+        private readonly Dictionary<int,Joueur> _joueurs = new ();
+        private readonly Chronometre _chrono = new Chronometre();
 
         // Rendre Tournoi en Singleton
         private static Tournoi? _instance;
         private Tournoi()
         {
-
+            // Chrono
+            _chrono.Subscribe(this);
+            Subscribe(_chrono);
         }
 
         public static Tournoi Instance
@@ -34,6 +30,20 @@ namespace Exercice3GestionTournoi.Backend
             }
         }
 
+        public void SetNomTournoi(string nom)
+        {
+            _nomTournoi = nom;
+        }
+
+        public string GetNomTournoi()
+        {
+            return _nomTournoi;
+        }
+
+
+        /// 
+        /// Tournoi Observable Pour Forms
+        /// 
         // Une liste des observateurs (observers) - ici les frames admin et joueur
         private readonly HashSet<IObserver<NotificationTournoi>> _observateurs = new();
         // Une liste des notifications
@@ -54,25 +64,26 @@ namespace Exercice3GestionTournoi.Backend
             return new Unsubscriber<NotificationTournoi>(_observateurs, observateur);
         }
 
-        internal sealed class Unsubscriber<Notification> : IDisposable
+
+        internal sealed class Unsubscriber<TNotification> : IDisposable
         {
-            private readonly ISet<IObserver<Notification>> _observers;
-            private readonly IObserver<Notification> _observer;
+            private readonly ISet<IObserver<TNotification>> _observers;
+            private readonly IObserver<TNotification> _observer;
 
             internal Unsubscriber(
-                ISet<IObserver<Notification>> observers,
-                IObserver<Notification> observer) => 
+                ISet<IObserver<TNotification>> observers,
+                IObserver<TNotification> observer) => 
                 (_observers, _observer) = 
                 (observers, observer);
 
             public void Dispose() => _observers.Remove(_observer);
         }
-        /// 
-        ///  Chrono
-        /// 
-        public Chronometre chrono = new Chronometre();
 
-        public void updateTime(NotificationTournoi notif)
+        /// 
+        ///  Chrono Old Impl
+        /// 
+
+        public void UpdateTime(NotificationTournoi notif)
         {
             foreach (var observateur in _observateurs)
             {
@@ -80,16 +91,24 @@ namespace Exercice3GestionTournoi.Backend
             }
         }
 
-        public void startInscription(TimeSpan duree)
+        public void StartInscription(TimeSpan duree)
         {
             foreach (var observateur in _observateurs)
             {
                 NotificationTournoi notif = new NotificationTournoi { Type = NotificationTournoiType.InscriptBegin };
                 observateur.OnNext(notif);
             }
-            chrono.Start(1000,duree);
+            foreach (var observateur in _observateursChrono)
+            {
+                NotificationChrono notif = new NotificationChrono { Type = NotificationChronoType.InscriptBegin, delai = 1000, duree = duree };
+                observateur.OnNext(notif);
+            }
         }
-        public void stopInscription()
+
+        /// 
+        /// Termine l'inscription par le bouton
+        /// 
+        public void StopInscriptionByButton()
         {
             List<Equipe> equipeNonValide = this.GetEquipes().FindAll(t => t.IsReady == false).ToList();
 
@@ -106,16 +125,116 @@ namespace Exercice3GestionTournoi.Backend
                     observateur.OnNext(notif);
                 }
             }
+            NotifyObserverFormsOfEnd();
+            NotifyObserverChronoOfEnd();
+        }
+
+        ///
+        /// Termine l'inscription par le Chrono
+        ///
+        public void StopInscriptionByChrono()
+        {
+            List<Equipe> equipeNonValide = this.GetEquipes().FindAll(t => t.IsReady == false).ToList();
+
+            foreach (Equipe equip in equipeNonValide)
+            {
+                foreach (Joueur j in equip.GetJoueurs())
+                {
+                    _joueurs.Remove(j.getId());
+                }
+                _equipes.Remove(equip.getId());
+                foreach (var observateur in _observateurs)
+                {
+                    NotificationTournoi notif = new NotificationTournoi { Equipe = equip, Type = NotificationTournoiType.TeamRemoved };
+                    observateur.OnNext(notif);
+                }
+            }
+            NotifyObserverFormsOfEnd();
+        }
+
+        ///
+        /// Sert a avertir les Forms de la fin de l'inscription
+        /// 
+        public void NotifyObserverFormsOfEnd()
+        {
             foreach (var observateur in _observateurs)
             {
                 NotificationTournoi notif = new NotificationTournoi { Type = NotificationTournoiType.InscriptEnd };
                 observateur.OnNext(notif);
             }
-
-            chrono.Stop();
         }
 
-        //
+        ///
+        /// Sert a avertir les Chrono que la fin a été déclencher par le bouton
+        ///
+        public void NotifyObserverChronoOfEnd()
+        {
+            foreach (var observateur in _observateursChrono)
+            {
+                NotificationChrono notif = new NotificationChrono { Type = NotificationChronoType.InscriptEnd };
+                observateur.OnNext(notif);
+            }
+        }
+
+        /// 
+        /// Tournoi Observer Pour Chrono
+        /// 
+        private IDisposable? _cancellation;
+        public virtual void Subscribe2(Chronometre provider)
+        {
+            _cancellation = provider.Subscribe(this);
+        }
+
+        public virtual void Unsubscribe()
+        {
+            _cancellation?.Dispose();
+        }
+        public void OnNext(NotificationChrono notification)
+        {
+            switch (notification.Type)
+            {
+                case NotificationChronoType.UpdateChrono:
+                    UpdateTime(new NotificationTournoi { Type = NotificationTournoiType.UpdateChrono, tempsRestant = notification.tempsRestant });
+                    break;
+                case NotificationChronoType.InscriptEnd:
+                    StopInscriptionByChrono();
+                    break;
+
+            }
+
+        }
+        public void OnCompleted()
+        {
+        }
+
+        public void OnError(Exception error)
+        {
+        }
+
+        /// 
+        /// Tournoi Observable Pour Chrono
+        ///
+
+        // Une liste des observateurs (observers) - ici Chrono
+        private readonly HashSet<IObserver<NotificationChrono>> _observateursChrono = new();
+        private readonly HashSet<NotificationChrono> _notificationsChrono = new();
+
+        // Méthode qui permet d'ajouter un nouvel observateur (implémente la méthode Subscribe de l'interface IObservable)
+        public IDisposable Subscribe(IObserver<NotificationChrono> observateur)
+        {
+            // Si l'obervateur n'est pas encore dans la liste, on l'ajoute
+            if (_observateursChrono.Add(observateur))
+            {
+                // On lui envoie les notifications
+                foreach (var notification in _notificationsChrono)
+                {
+                    observateur.OnNext(notification);
+                }
+            }
+            return new Unsubscriber<NotificationChrono>(_observateursChrono, observateur);
+        }
+
+        ///
 
         public bool IsUniquePseudo(string pseudo)
         {
@@ -129,7 +248,7 @@ namespace Exercice3GestionTournoi.Backend
 
         public bool IsEquipeComplete(int idEquipe)
         {
-            if (_equipes[idEquipe].getNbJoueurs() >= NbJoueursMinParEquipe)
+            if (_equipes[idEquipe].getNbJoueurs() >= _nbJoueursMinParEquipe)
             {
                 _equipes[idEquipe].IsReady = true;
 
@@ -170,7 +289,7 @@ namespace Exercice3GestionTournoi.Backend
             return _equipes[idEquipe];
         }
 
-        public Equipe AddEquipe(string nomEquipe)
+        public Equipe? AddEquipe(string nomEquipe)
         {
             
             lock (Lock)

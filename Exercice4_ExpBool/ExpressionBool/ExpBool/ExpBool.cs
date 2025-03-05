@@ -1,4 +1,4 @@
-﻿namespace Exercice4_ExpBool.ExpressionBool;
+﻿namespace Exercice4_ExpBool.ExpressionBool.ExpBool;
 
 public abstract class ExpBool : IExpressionBool
 {

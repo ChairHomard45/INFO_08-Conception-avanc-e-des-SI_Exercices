@@ -5,14 +5,11 @@ namespace Exercice3GestionTournoi
 {
     public partial class MainForm : Form
     {
-        private Tournoi tournoi;
         public MainForm()
         {
             InitializeComponent();
-            ////// Ajouter par Clement
-            tournoi = Tournoi.Instance;
-            tournoi.NomTournoi = "Tournoi intergallactique";
-
+            
+            //
             AdminForm adminForm = new AdminForm();
             adminForm.Subscribe(Tournoi.Instance);
             adminForm.Show();
@@ -20,6 +17,9 @@ namespace Exercice3GestionTournoi
             //////
             JoueurForm joueurForm = new JoueurForm();
             joueurForm.Show();
+
+            JoueurForm joueurForm2 = new JoueurForm();
+            joueurForm2.Show();
         }
 
 

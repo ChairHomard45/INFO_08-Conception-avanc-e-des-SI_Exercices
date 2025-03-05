@@ -13,16 +13,9 @@ public class MonstreMarin : Monstre, ICloneable
   */
   public new object Clone()
   {
-    MonstreMarin newMonstreMarin = new MonstreMarin();
-    newMonstreMarin._Yeux = new List<Oeil>();
+    MonstreMarin newMonstreMarin = (MonstreMarin) base.Clone();
     newMonstreMarin._Nageoire = new List<Nageoire>();
     newMonstreMarin._TypeEau = _TypeEau;
-    newMonstreMarin._Nom = _Nom;
-    foreach (Oeil oeil in _Yeux)
-    {
-      newMonstreMarin._Yeux.Add((Oeil) oeil.Clone());
-    }
-
     foreach (Nageoire nageoire in _Nageoire)
     {
       newMonstreMarin._Nageoire.Add((Nageoire) nageoire.Clone());

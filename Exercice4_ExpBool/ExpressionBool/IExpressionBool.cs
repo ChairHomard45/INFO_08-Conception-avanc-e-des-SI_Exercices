@@ -2,5 +2,5 @@
 
 public interface IExpressionBool
 {
-    
+    public bool Evalue(Contexte context);
 }

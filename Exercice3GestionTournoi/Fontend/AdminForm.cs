@@ -39,7 +39,7 @@ namespace Exercice3GestionTournoi.Fontend
 
         private void refreshForm()
         {
-            textNomTournoi.Text = Tournoi.Instance.NomTournoi;
+            textNomTournoi.Text = Tournoi.Instance.GetNomTournoi();
             listEquipesInscrites.Items.Clear();
             listEquipesInscrites.Items.AddRange(GetEquipes(true));
             listEquipesInscrites.DisplayMember = "DisplayEquipe";
@@ -51,8 +51,57 @@ namespace Exercice3GestionTournoi.Fontend
             listJoueursInscrits.DisplayMember = "DisplayJoueur";
         }
 
+        private void boutonDemarrer_MouseClick(object sender, MouseEventArgs e)
+        {
+            if (!competitionBegin)
+            {
+                boutonDemarrer.BackColor = Color.Red;
+                boutonDemarrer.Text = "Arrêter la phase d'inscription";
+
+
+                if (timerD == 0)
+                {
+                    Tournoi.Instance.StartInscription(new TimeSpan(0, 5, 0));
+                }
+                else
+                {
+                    TimeSpan duration = new TimeSpan(0, timerD, 0);
+                    Tournoi.Instance.StartInscription(duration);
+                }
+
+                competitionBegin = true;
+            }
+            else
+            {
+                boutonDemarrer.BackColor = Color.LimeGreen;
+                boutonDemarrer.Text = "Démarrer la phase d'inscription";
+                Tournoi.Instance.StopInscriptionByButton();
+                competitionBegin = false;
+            }
+        }
+
+        private void numericTime_ValueChanged(object sender, EventArgs e)
+        {
+            if (numericTime.Value > 0 && numericTime.Value < 59)
+            {
+                timerD = ((int)numericTime.Value);
+                labelChrono.Text = string.Format("{0:D2}:00", timerD);
+                labelErreur.Text = "";
+            }
+            else
+            {
+                labelErreur.ForeColor = Color.Red;
+                labelErreur.Text = "Le nombre doit être entre 1 et 58";
+            }
+        }
+
+        private void labelChrono_Click(object sender, EventArgs e)
+        {
+
+        }
+
         /// <summary>
-        /// 
+        /// Observer on Tournoi
         /// </summary>
         /// 
 
@@ -80,6 +129,7 @@ namespace Exercice3GestionTournoi.Fontend
                     break;
                 case NotificationTournoiType.InscriptEnd:
                     richTextBox.Text += "\n" + DateTime.Now + " - Fin de la phase d'inscription. Le tournoi peut commencer !";
+                    competitionBegin = true;
                     labelChrono.Text = "05:00";
                     boutonDemarrer.BackColor = Color.LimeGreen;
                     boutonDemarrer.Text = "Démarrer la phase d'inscription";
@@ -96,58 +146,9 @@ namespace Exercice3GestionTournoi.Fontend
         public void OnCompleted()
         {
         }
-
         public void OnError(Exception error)
         {
         }
 
-        private void boutonDemarrer_MouseClick(object sender, MouseEventArgs e)
-        {
-            if (!competitionBegin)
-            {
-                boutonDemarrer.BackColor = Color.Red;
-                boutonDemarrer.Text = "Arrêter la phase d'inscription";
-
-
-                if (timerD == 0)
-                {
-                    Tournoi.Instance.startInscription(new TimeSpan(0, 5, 0));
-                }
-                else
-                {
-                    TimeSpan duration = new TimeSpan(0, timerD, 0);
-                    Tournoi.Instance.startInscription(duration);
-                }
-
-                competitionBegin = true;
-            }
-            else
-            {
-                boutonDemarrer.BackColor = Color.LimeGreen;
-                boutonDemarrer.Text = "Démarrer la phase d'inscription";
-                Tournoi.Instance.stopInscription();
-                competitionBegin = false;
-            }
-        }
-
-        private void numericTime_ValueChanged(object sender, EventArgs e)
-        {
-            if (numericTime.Value > 0 && numericTime.Value < 59)
-            {
-                timerD = ((int)numericTime.Value);
-                labelChrono.Text = string.Format("{0:D2}:00", timerD);
-                labelErreur.Text = "";
-            }
-            else
-            {
-                labelErreur.ForeColor = Color.Red;
-                labelErreur.Text = "Le nombre doit être entre 1 et 58";
-            }
-        }
-
-        private void labelChrono_Click(object sender, EventArgs e)
-        {
-
-        }
     }
 }

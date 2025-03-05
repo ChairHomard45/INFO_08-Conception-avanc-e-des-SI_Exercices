@@ -1,0 +1,11 @@
+﻿
+=> Chrono : Observable + Observer -> Tournoi
+
+=> Tournoi : Observable + Observer -> Chrono
+
+=> 
+
+
+
+
+

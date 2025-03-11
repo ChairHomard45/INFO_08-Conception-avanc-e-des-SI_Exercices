@@ -1,4 +1,4 @@
-﻿namespace Exercice5_LeGlacier.Glace;
+﻿namespace Exercice5_LeGlacier_V1.Glace;
 
 public class TripleChocolat : CoupeGlace
 {
@@ -33,5 +33,6 @@ public class TripleChocolat : CoupeGlace
         {
             Console.Write(parf + " - ");
         }
+        Console.WriteLine();
     }
 }

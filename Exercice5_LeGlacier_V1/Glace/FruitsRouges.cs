@@ -1,4 +1,4 @@
-﻿namespace Exercice5_LeGlacier.Glace;
+﻿namespace Exercice5_LeGlacier_V1.Glace;
 
 public class FruitsRouges : CoupeGlace
 {
@@ -31,5 +31,6 @@ public class FruitsRouges : CoupeGlace
         {
             Console.Write(parf + " - ");
         }
+        Console.WriteLine();
     }
 }

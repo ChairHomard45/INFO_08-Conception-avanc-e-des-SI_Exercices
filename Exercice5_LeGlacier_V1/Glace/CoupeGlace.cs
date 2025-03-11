@@ -1,4 +1,4 @@
-﻿namespace Exercice5_LeGlacier.Glace;
+﻿namespace Exercice5_LeGlacier_V1.Glace;
 
 public abstract class CoupeGlace
 {

@@ -8,31 +8,24 @@
     "net8.0": []
   },
   "packageFolders": {
-    "C:\\Users\\delep\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
+    "/Users/clementdelepaut/.nuget/packages/": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\delep\\source\\repos\\ChairHomard45\\INFO_08-Conception-avanc-e-des-SI_Exercices\\Exercice2\\Exercice2.csproj",
+      "projectUniqueName": "/Users/clementdelepaut/RiderProjects/ConceptionAvancee/Exercice2/Exercice2.csproj",
       "projectName": "Exercice2",
-      "projectPath": "C:\\Users\\delep\\source\\repos\\ChairHomard45\\INFO_08-Conception-avanc-e-des-SI_Exercices\\Exercice2\\Exercice2.csproj",
-      "packagesPath": "C:\\Users\\delep\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\delep\\source\\repos\\ChairHomard45\\INFO_08-Conception-avanc-e-des-SI_Exercices\\Exercice2\\obj\\",
+      "projectPath": "/Users/clementdelepaut/RiderProjects/ConceptionAvancee/Exercice2/Exercice2.csproj",
+      "packagesPath": "/Users/clementdelepaut/.nuget/packages/",
+      "outputPath": "/Users/clementdelepaut/RiderProjects/ConceptionAvancee/Exercice2/obj/",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
-      ],
       "configFilePaths": [
-        "C:\\Users\\delep\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "/Users/clementdelepaut/.nuget/NuGet/NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -50,8 +43,7 @@
         "enableAudit": "true",
         "auditLevel": "low",
         "auditMode": "direct"
-      },
-      "SdkAnalysisLevel": "9.0.200"
+      }
     },
     "frameworks": {
       "net8.0": {
@@ -72,7 +64,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.200/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.406/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
